@@ -13,12 +13,21 @@ AActorRotating::AActorRotating()
 	SetRootComponent(Mesh);
 
 	// 큐브 또는 메시에 대한 경로를 TEXT 안에 넣기
-	// /Script/Engine.StaticMesh'/Engine/BasicShapes/Cube.Cube'
-	static ConstructorHelpers::FObjectFinder<UStaticMesh> cubeMesh(TEXT("/Script/Engine.StaticMesh'/Engine/BasicShapes/Cube.Cube"));
+	// /Script/Engine.StaticMesh'/Engine/BasicShapes/Plane.Plane'
+	static ConstructorHelpers::FObjectFinder<UStaticMesh> cubeMesh(TEXT("/Engine/BasicShapes/Plane.Plane"));
 	if (cubeMesh.Succeeded())
 	{
 		UStaticMesh* InStaticMesh = cubeMesh.Object;
 		Mesh->SetStaticMesh(InStaticMesh);
+	}
+
+	// /Script/Engine.Material'/Engine/EngineMaterials/CubeMaterial.CubeMaterial'
+	static ConstructorHelpers::FObjectFinder<UMaterial> goldMat(TEXT("/Engine/EngineMaterials/CubeMaterial.CubeMaterial"));
+
+	if (goldMat.Succeeded())
+	{
+		UMaterialInterface* Material = goldMat.Object;
+		Mesh->SetMaterial(0, Material);
 	}
 }
 

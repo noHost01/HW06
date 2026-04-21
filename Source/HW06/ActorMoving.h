@@ -31,4 +31,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Data", meta = (AllowPrivateAccess = "true"))
 	float MaxRange;
+
+	UPROPERTY()
+	int Direcion = 1;
+
+	UPROPERTY(VisibleAnyWhere)
+	TObjectPtr<UStaticMeshComponent> Mesh;
 };
