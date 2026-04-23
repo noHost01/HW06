@@ -1,3 +1,5 @@
+// ActorMoving.cpp
+
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
@@ -8,6 +10,10 @@ AActorMoving::AActorMoving()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	MoveSpeed = 200.f;
+	MaxRange = 300.f;
+	Direcion = 1;
 
 	Mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Mesh"));
 	SetRootComponent(Mesh);
@@ -38,6 +44,7 @@ void AActorMoving::BeginPlay()
 
 	// 스타트 StartLocation()
 	
+	StartLocation = GetActorLocation();
 	
 }
 
@@ -50,7 +57,7 @@ void AActorMoving::Tick(float DeltaTime)
 	FVector CurVector = GetActorLocation();
 	if (CurVector.Y >= MaxRange && Direcion > 0 || CurVector.Y <= -MaxRange && Direcion < 0)
 	{
-		Direcion = -1 * Direcion;
+		Direcion *= -1;
 	}
 
 	// 무브 스피드 MoveSpeed()
