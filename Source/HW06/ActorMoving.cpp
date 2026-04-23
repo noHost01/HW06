@@ -54,8 +54,10 @@ void AActorMoving::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 	// 이동 제한 MaxRange()
-	FVector CurVector = GetActorLocation();
-	if (CurVector.Y >= MaxRange && Direcion > 0 || CurVector.Y <= -MaxRange && Direcion < 0)
+	FVector CurLocation = GetActorLocation();
+	float DistanceY = CurLocation.Y - StartLocation.Y;
+
+	if ((DistanceY >= MaxRange && Direcion > 0) || (DistanceY <= -MaxRange && Direcion < 0))
 	{
 		Direcion *= -1;
 	}
@@ -63,7 +65,7 @@ void AActorMoving::Tick(float DeltaTime)
 	// 무브 스피드 MoveSpeed()
 	FVector DeltaLocation = FVector::ZeroVector;
 	DeltaLocation.Y += DeltaTime * MoveSpeed * Direcion;
-	AddActorLocalOffset(DeltaLocation);
+	AddActorWorldOffset(DeltaLocation);
 
 }
 
